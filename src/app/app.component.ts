@@ -8,7 +8,7 @@ import { createHttpObservable } from "./utils/util";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent implements OnInit {
-  url: string = "https://my-json-server.typicode.com/amolbote/jsondata/db";
+  url: string = "https://my-json-server.typicode.com/amolbote/jsondata/courses";
 
   http$: Observable<any>;
   ngOnInit(): void {
