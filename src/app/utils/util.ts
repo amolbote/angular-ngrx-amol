@@ -8,7 +8,6 @@ export function createHttpObservable(url: string) {
         return response.json(); // return promise
       })
       .then(body => {
-        console.log(body);
         observer.next(body);
         observer.complete();
       })
