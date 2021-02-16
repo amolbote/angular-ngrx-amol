@@ -1,5 +1,5 @@
 import { Component, OnInit, VERSION } from "@angular/core";
-import { Observable } from "rxjs";
+import { noop, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { createHttpObservable } from "./utils/util";
 
@@ -18,6 +18,10 @@ export class AppComponent implements OnInit {
 
     //this.http$.subscribe(data => console.log(data));
     this.courses$ = this.http$.pipe(map(courses => Object.values(courses)));
-    this.courses$.subscribe(data => console.log(data));
+    this.courses$.subscribe(
+        data => console.log(data),
+        noop,
+        () => console.log('completed')
+      );
   }
 }
