@@ -1,5 +1,6 @@
 import { Component, OnInit, VERSION } from "@angular/core";
 import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 import { createHttpObservable } from "./utils/util";
 
 @Component({
@@ -14,9 +15,9 @@ export class AppComponent implements OnInit {
   courses$: Observable<any>;
   ngOnInit(): void {
     this.http$ = createHttpObservable(this.url);
-    this.http$.pipe(map(data => data)).subscribe(data1 => console.log(data1));
-    // this.http$.subscribe(data => console.log(data));
-    // this.courses$ = http$.pipe(map(courses => Object.values(courses)));
-    // this.courses$.subscribe(data => console.log(data));
+
+    //this.http$.subscribe(data => console.log(data));
+    this.courses$ = this.http$.pipe(map(courses => Object.values(courses)));
+    this.courses$.subscribe(data => console.log(data));
   }
 }
