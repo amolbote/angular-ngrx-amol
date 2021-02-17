@@ -1,6 +1,6 @@
 import { Component, OnInit, VERSION } from "@angular/core";
 import { noop, Observable } from "rxjs";
-import { map } from "rxjs/operators";
+import { map, shareReplay } from "rxjs/operators";
 import { createHttpObservable } from "./utils/util";
 
 interface Courses {
@@ -29,7 +29,10 @@ export class AppComponent implements OnInit {
     this.http$ = createHttpObservable(this.url);
 
     //this.http$.subscribe(data => console.log(data));
-    this.courses$ = this.http$.pipe(map(courses => Object.values(courses)));
+    this.courses$ = this.http$.pipe(
+      map(courses => Object.values(courses)),
+      shareReplay()
+    );
 
     this.beginnerCourses$ = this.courses$.pipe(
       map(courses => courses.filter(course => course.category === "BEGINNER"))
