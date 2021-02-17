@@ -28,7 +28,8 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.http$ = createHttpObservable(this.url);
 
-    //this.http$.subscribe(data => console.log(data));
+    // shareReplay operator will make only one http call and
+    // shares result with all subscribers (check network tab)
     this.courses$ = this.http$.pipe(
       map(courses => Object.values(courses)),
       shareReplay()
