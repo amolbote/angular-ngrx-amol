@@ -30,9 +30,6 @@ export class AppComponent implements OnInit {
 
     //this.http$.subscribe(data => console.log(data));
     this.courses$ = this.http$.pipe(map(courses => Object.values(courses)));
-    this.courses$.subscribe(data => console.log("!!!", data), noop, () =>
-      console.log("completed")
-    );
 
     this.beginnerCourses$ = this.courses$.pipe(
       map(courses => courses.filter(course => course.category === "BEGINNER"))
