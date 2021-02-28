@@ -7,7 +7,14 @@ import {
   ViewChild
 } from "@angular/core";
 
-import { exhaustMap, merge, take } from "rxjs/operators";
+import {
+  debounceTime,
+  distinctUntilChanged,
+  exhaustMap,
+  map,
+  merge,
+  take
+} from "rxjs/operators";
 import { fromEvent, interval } from "rxjs";
 
 @Component({
@@ -19,8 +26,12 @@ export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild("mySelect") mySelect: ElementRef;
   ngOnInit(): void {}
   ngAfterViewInit(): void {
-    fromEvent(document, "scroll").subscribe(val =>
-      console.log(this.mySelect.nativeElement.value)
-    );
+    fromEvent(document, "scroll")
+      .pipe(
+        map(event => event),
+        debounceTime(1000),
+        distinctUntilChanged()
+      )
+      .subscribe(console.log);
   }
 }
