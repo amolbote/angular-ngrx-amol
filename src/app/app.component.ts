@@ -26,12 +26,15 @@ export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild("mySelect") mySelect: ElementRef;
   ngOnInit(): void {}
   ngAfterViewInit(): void {
-    fromEvent(document, "scroll")
+    //map((event:any) => event.currentTarget.value)
+    const scrollEvent = fromEvent(document, "scroll")
       .pipe(
         map(event => event),
-        debounceTime(1000),
+        debounceTime(500),
         distinctUntilChanged()
       )
-      .subscribe(console.log);
+      .subscribe(evt => {
+        console.log(evt);
+      });
   }
 }
